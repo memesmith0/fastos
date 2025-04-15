@@ -675,56 +675,68 @@ the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
  */
-#inlude <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #define p(x,y,z) putchar(x);putchar(y);putchar(z);
-#define define_num(x) p('"',x,x);p('-',x,'#');
-#define negate(x) p('m','0','n');p('-','n','x');p('m','n','x');
+
+#define define_num(x) p('\"',x,x);p('-',x,'#');
+#define negate(x) p('m','0','n');p('-','n',x);p('m','n',x);
 #define add(x,y) negate(y);p('-',x,y);
+
 #define double(x) p('m',x,'d');add(x,'d');
-#define load(x,d) p('\"',x,'x');p('w','x',d);p('m','1','x');p('j','x',d);
+#define load(x,d) p('\"',x,'X');p('w','X',d);p('j','1',d);
 #define load_i(x,y,z,d) load(x,d);load(y,d);load(z,d);
+//load(y,d);load(z,d);
 int main(){
 
   //create kilobyte or "block"
   p('\"','0','#');
+
   define_num('0');
   define_num('1');
-  p('m','1','k');double('k');double('k');double('k');double('k');double('k');double('k');double('k');double('k');double('k');double('k');
+  p('m','1','k');double('k');double('k');double('k');double('k');double('k');double('k');double('k');double('k');double('k');double('k');double('k');double('k');
 
   //create some space for a function to fetch new instructions
   p('m','k','F');p('a','F',' ');
 
-  //create some space for a function to fetch new instructions
-  p('m','k','P');p('a','P',' ');
-
   //prepare for stuff to be loaded into that function
-  p('M','F','f');
+  p('m','F','f');
 
   //make some room for the new instruction
-  p('j','1','f');p('j','1','f');  p('j','1','f');
+      p('j','1','f');p('j','1','f');p('j','1','f');
+  //    load_i('i','o','o','f');
+  //    load_i('o','o','o','f');
+  //    load_i('z','o','o','f');
 
-  //load some insttructions into the function
+
+
 
   //prepare the fetcher for the next instructions
   load_i('m','F','f','f');
+  //    negate('1');p('j','1','f');p('j','1','f');p('j','1','f');
+  //      p('r','f','X');p('o','X',' ');putchar('z');putchar('g');
+
 
   //the fetcher fetches three instructions
-  load_i('i','X',' ','f');load_i('w','X','f','f');load_i('j','1','f','f');
-  load_i('i','X',' ','f');load_i('w','X','f','f');load_i('j','1','f','f');
-  load_i('i','X',' ','f');load_i('w','X','f','f');load_i('j','1','f','f');
+    load_i('i','X',' ','f');load_i('w','X','f','f');load_i('j','1','f','f');
+    load_i('i','X',' ','f');load_i('w','X','f','f');load_i('j','1','f','f');
+    load_i('i','X',' ','f');load_i('w','X','f','f');load_i('j','1','f','f');
 
   //the instructions run
-  load_i('c','F',' ','f');
+    load_i('x','F',' ','f');
+
 
   //run the fetcher
-  p('c','F',' ');
+        p('m','F','f');
+	p('j','1','f');p('j','1','f');p('j','1','f');
+
+    
+        p('x','f',' ');
+
 
   //run
-  p('g',' ',' ');
+  putchar('g');
 
-
-  
   //finish
-  return 0
+  return 0;
 }
